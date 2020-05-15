@@ -8,12 +8,11 @@ E.prototype.value = function (newValue)
   if (newValue !== U)
   {
     this._E.value = newValue;
-  }
-  else
+  } else
   {
     return this._E.value;
   }
-}
+};
 
 /**
  * Gets / sets the HTML.
@@ -25,8 +24,7 @@ E.prototype.html = function (newValue)
   if (newValue !== U)
   {
     this._E.innerHTML = newValue;
-  }
-  else
+  } else
   {
     return this._E.innerHTML;
   }
@@ -74,7 +72,7 @@ E.prototype.prepend = function (prependValue)
  */
 E.prototype.show = function (item)
 {
-  this._E.style.display = "block";
+  this._E.style.display = 'block';
 };
 
 /**
@@ -83,7 +81,7 @@ E.prototype.show = function (item)
  */
 E.prototype.hide = function (item)
 {
-  this._E.style.display = "none";
+  this._E.style.display = 'none';
 };
 
 /**
@@ -99,8 +97,7 @@ E.prototype.attribute = function (attributeName, newValue)
     if (newValue !== U)
     {
       this._E[attributeName] = newValue;
-    }
-    else
+    } else
     {
       return this._E[attributeName];
     }

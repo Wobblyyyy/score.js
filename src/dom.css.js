@@ -8,8 +8,7 @@ E.prototype.class = function (newClass)
   if (newClass !== U)
   {
     this._E.className = newClass;
-  }
-  else
+  } else
   {
     return this._E.className;
   }
@@ -24,8 +23,7 @@ E.prototype.addClass = function (newClass)
   if (newClass !== U)
   {
     this._E.classList.add(newClass);
-  }
-  else console.error("Error in score.js/dom.css.js - can't add a class which is undefined.");
+  } else console.error('Error in score.js/dom.css.js - can\'t add a class which is undefined.');
 };
 
 /**
@@ -37,8 +35,7 @@ E.prototype.removeClass = function (removedClass)
   if (removedClass !== U)
   {
     this._E.classList.remove(removedClass);
-  }
-  else console.error("Error in score.js/dom.css.js - can't remove a class which is undefined.");
+  } else console.error('Error in score.js/dom.css.js - can\'t remove a class which is undefined.');
 };
 
 /**
@@ -56,18 +53,16 @@ E.prototype._fade = function (duration, target, element)
 {
   if (isNaN(parseFloat(element.style.opacity))) element.style.opacity = Math.abs(target - 1).toString();
   const dist = (parseFloat(element.style.opacity) - target) * 4;
-  console.log("distance: " + dist);
   const run = setInterval(function ()
   {
     element.style.opacity = (parseFloat(element.style.opacity) - dist / duration).toString();
-    console.log(element.style.opacity);
   }, dist / duration);
   setTimeout(function ()
   {
     clearInterval(run);
     element.style.opacity = target;
   }, duration);
-}
+};
 
 /**
  * Fade the target element out.
@@ -76,7 +71,7 @@ E.prototype._fade = function (duration, target, element)
 E.prototype.fadeOut = function (duration)
 {
   this._fade(duration, 0, this._E);
-}
+};
 
 /**
  * Fade the target element in
@@ -85,7 +80,7 @@ E.prototype.fadeOut = function (duration)
 E.prototype.fadeIn = function (duration)
 {
   this._fade(duration, 1, this._E);
-}
+};
 
 /**
  * Fades to a specific opacity.
@@ -98,4 +93,4 @@ E.prototype.fadeTo = function (duration, target)
 {
   target = target > 1 ? target / 100 : target;
   this._fade(duration, target, this._E);
-}
+};
