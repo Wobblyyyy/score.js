@@ -56,7 +56,7 @@ E.prototype.appendScript = function (scriptSource)
 
 /**
  * Prepends an element.
- * @param scriptSource what to prepend.
+ * @param prependValue what to prepend.
  */
 E.prototype.prepend = function (prependValue)
 {
@@ -68,18 +68,16 @@ E.prototype.prepend = function (prependValue)
 
 /**
  * Shows the element
- * @param item ?
  */
-E.prototype.show = function (item)
+E.prototype.show = function ()
 {
   this._E.style.display = 'block';
 };
 
 /**
  * Hides the element
- * @param item ?
  */
-E.prototype.hide = function (item)
+E.prototype.hide = function ()
 {
   this._E.style.display = 'none';
 };
