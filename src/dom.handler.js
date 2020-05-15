@@ -5,7 +5,7 @@
  */
 E.prototype.on = function (event, callback)
 {
-  this.H.bind(event, callback, this._E);
+  this.eventBinderObject.bind(event, this._E, callback);
 };
 
 /**
@@ -14,7 +14,7 @@ E.prototype.on = function (event, callback)
  */
 E.prototype.click = function (callback)
 {
-  this.H.bind('click', callback, this._E);
+  this.on('click', callback);
 };
 
 /**
@@ -23,7 +23,7 @@ E.prototype.click = function (callback)
  */
 E.prototype.updated = function (callback)
 {
-  this.H.bind('change', callback, this._E);
+  this.on('change', callback);
 };
 
 /**
@@ -32,9 +32,9 @@ E.prototype.updated = function (callback)
  */
 E.prototype.redirect = function (url)
 {
-  this.H.bind('click', function ()
+  this.on('click', function ()
   {
-    window.location.href = '/' + url;
+    window.location.href = "/" + url;
   });
 };
 
@@ -44,52 +44,46 @@ E.prototype.redirect = function (url)
  */
 E.prototype.onLoad = function (callback)
 {
-  this.H.bind('load', callback, this._E);
+  this.on('load', callback);
 };
 
 /**
  * Off function, unbind event.
  * @param event event
- * @param callback callback function
  */
-E.prototype.off = function (event, callback)
+E.prototype.off = function (event)
 {
-  this.H.unbind(event, callback, this._E);
+  this.eventBinderObject.unbind(event, this._E);
 };
 
 /**
- * Internally used to bind events.
- * @type {{Ev: [], bind: E.H.bind, unbind: E.H.unbind, f: (function(*=): *)}}
+ * Used internally to bind events.
+ * @type {{bind: E.eventBinderObject.bind, unbind: E.eventBinderObject.unbind, fetch: (function(*=, *): *), events: []}}
  */
-E.prototype.H = {
-  Ev: [],
-  bind: function (event, callback, targetElement)
+E.prototype.eventBinderObject = {
+  events: [],
+  bind: function (event, element, callback)
   {
-    this.unbind(event, targetElement);
-    targetElement.addEventListener(event, callback, false);
-    this.Ev.push({
-      type: event,
-      event: callback,
-      target: targetElement,
+    this.unbind(event, element);
+    element.addEventListener(event, callback, false);
+    this.events.push({
+      'eventType': event,
+      'eventCallback': callback,
+      'eventElement': element
     });
   },
-  f: function (event)
+  fetch: function (event, element)
   {
-    return this.Ev.filter(function (evt)
+    return this.events.filter(function (event, element)
     {
-      return (evt.type === event);
+      return (event.eventType === event) && (event.eventElement === element);
     }, event)[0];
   },
-  unbind: function (event, targetElement)
+  unbind: function (event, element)
   {
-    const foundEvent = this.f(event);
-    if (foundEvent !== U)
+    if (this.fetch(event, element) !== U)
     {
-      targetElement.removeEventListener(event, foundEvent.event, false);
+      element.removeEventListener(event, this.fetch(event, element).eventType);
     }
-    this.Ev = this.Ev.filter(function (evt)
-    {
-      return (evt.type !== event);
-    }, event);
-  },
-};
+  }
+}
