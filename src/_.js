@@ -1,3 +1,10 @@
+/*
+ * TODO
+ *  Add stricter and better support for using classes as selectors.
+ *  Optimize errors to better prevent them
+ *  Increase the quality of documentation project-wide
+ */
+
 'use strict';
 
 /**
