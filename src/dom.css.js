@@ -1,16 +1,9 @@
+/**
+ * Sets the class of an element.
+ * @param newClass the new class which should be set
+ * @returns {string} the string name which should be returned
+ */
 E.prototype.class = function (newClass)
-{
-  if (newClass !== U)
-  {
-    this._E.className = newClass;
-  }
-  else
-  {
-    return this._E.className;
-  }
-};
-
-E.prototype.setClass = function (newClass)
 {
   if (newClass !== U)
   {
