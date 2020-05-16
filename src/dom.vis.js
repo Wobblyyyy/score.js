@@ -31,42 +31,6 @@ E.prototype.html = function (newValue)
 };
 
 /**
- * Appends an element.
- * @param appendValue what to append.
- */
-E.prototype.append = function (appendValue)
-{
-  if (appendValue !== U)
-  {
-    this._E.innerHTML = this._E.innerHTML + appendValue;
-  }
-};
-
-/**
- * Appends a scriot
- * @param scriptSource the script's source.
- */
-E.prototype.appendScript = function (scriptSource)
-{
-  if (scriptSource !== U)
-  {
-    this._E.innerHTML = this._E.innerHTML + '<script src="' + scriptSource + '"></script>';
-  }
-};
-
-/**
- * Prepends an element.
- * @param prependValue what to prepend.
- */
-E.prototype.prepend = function (prependValue)
-{
-  if (prependValue !== U)
-  {
-    this._E.innerHTML = prependValue + this._E.innerHTML;
-  }
-};
-
-/**
  * Shows the element
  */
 E.prototype.show = function ()
