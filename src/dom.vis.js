@@ -3,15 +3,12 @@
  * @param newValue the new value
  * @returns {*} the current value
  */
-E.prototype.value = function (newValue)
-{
-  if (newValue !== U)
-  {
-    this._E.value = newValue;
-  } else
-  {
-    return this._E.value;
-  }
+E.prototype.value = function (newValue) {
+    if (newValue !== U) {
+        this._E.value = newValue;
+    } else {
+        return this._E.value;
+    }
 };
 
 /**
@@ -19,31 +16,26 @@ E.prototype.value = function (newValue)
  * @param newValue the new value
  * @returns {string} the current value
  */
-E.prototype.html = function (newValue)
-{
-  if (newValue !== U)
-  {
-    this._E.innerHTML = newValue;
-  } else
-  {
-    return this._E.innerHTML;
-  }
+E.prototype.html = function (newValue) {
+    if (newValue !== U) {
+        this._E.innerHTML = newValue;
+    } else {
+        return this._E.innerHTML;
+    }
 };
 
 /**
  * Shows the element
  */
-E.prototype.show = function ()
-{
-  this._E.style.display = 'block';
+E.prototype.show = function () {
+    this._E.style.display = 'block';
 };
 
 /**
  * Hides the element
  */
-E.prototype.hide = function ()
-{
-  this._E.style.display = 'none';
+E.prototype.hide = function () {
+    this._E.style.display = 'none';
 };
 
 /**
@@ -52,16 +44,12 @@ E.prototype.hide = function ()
  * @param newValue the value to set it to
  * @returns {*} the current attribute value
  */
-E.prototype.attribute = function (attributeName, newValue)
-{
-  if (attributeName !== U)
-  {
-    if (newValue !== U)
-    {
-      this._E[attributeName] = newValue;
-    } else
-    {
-      return this._E[attributeName];
+E.prototype.attribute = function (attributeName, newValue) {
+    if (attributeName !== U) {
+        if (newValue !== U) {
+            this._E[attributeName] = newValue;
+        } else {
+            return this._E[attributeName];
+        }
     }
-  }
 };
