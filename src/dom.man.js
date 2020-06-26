@@ -44,7 +44,7 @@ E.prototype.appendScript = function (scriptSource) {
     if (scriptSource !== U) {
         document.body.innerHTML += `<script src=${scriptSource}"></script>`;
     } else {
-        console.error('Error in score.js/dom.man.js: 
+        console.error('Error in score.js/dom.man.js: '
             + 'Could not append a nonexistent script.');
     }
 };
@@ -67,7 +67,7 @@ E.prototype.appendStyle = function (styleSource) {
         document.head.innerHTML += 
             `<link rel="stylesheet" href="${styleSource}"`;
     } else {
-        console.error('Error in score.js/dom.man.js: 
+        console.error('Error in score.js/dom.man.js: '
             + 'Could not append a nonexistent style.');
     }
 };
