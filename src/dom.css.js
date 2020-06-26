@@ -16,7 +16,7 @@ E.prototype.class = function (newClass) {
 E.prototype.addClass = function (newClass) {
     if (newClass !== U) {
         this._E.classList.add(newClass);
-    } else console.error('Error in score.js/dom.css.js - 
+    } else console.error('Error in score.js/dom.css.js - '
         + 'can\'t add a class which is undefined.');
 };
 
@@ -28,7 +28,7 @@ E.prototype.addClass = function (newClass) {
 E.prototype.removeClass = function (removedClass) {
     if (removedClass !== U) {
         this._E.classList.remove(removedClass);
-    } else console.error('Error in score.js/dom.css.js - 
+    } else console.error('Error in score.js/dom.css.js - '
         + 'can\'t remove a class which is undefined.');
 };
 
