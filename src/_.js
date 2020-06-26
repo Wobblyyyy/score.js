@@ -1,16 +1,6 @@
-/*
- * TODO
- *  Add stricter and better support for using classes as selectors.
- *  Optimize errors to better prevent them
- *  Increase the quality of documentation project-wide
- */
-
 'use strict';
 
-/**
- * Undefined value to shorten code
- * @type {undefined}
- */
+// U is for undefined, or, if you're SpongeBob, U is for U and Me. 
 const U = undefined;
 
 /**
@@ -45,22 +35,28 @@ E.prototype.I = function () {
     const selectorType = this._S.charAt(0);
     switch (selectorType) {
         case '.':
-            this._E = document.getElementsByClassName(this._S.substr(1));
+            this._E = 
+                document.getElementsByClassName(this._S.substr(1));
             break;
         case '#':
-            this._E = document.getElementById(this._S.substr(1));
+            this._E = 
+                document.getElementById(this._S.substr(1));
             break;
         case '$':
-            this._E = document.querySelector(('[sv="' + this._S.substr(1) + '"]'));
-            this._T = 'sv';
+            this._E = 
+                document.querySelector(('[sv="' + this._S.substr(1) + '"]'));
             break;
         case '@':
-            this._E = document.body;
+            this._E = 
+                document.body;
             break;
         default:
-            this._E = document[this._S];
+            this._E = 
+                document[this._S];
             break;
     }
     if (this._E === U)
-        console.error('Error in score.js/_.js: No element(s) could be found matching the query for "' + this._S + '"');
+        console.error('Error in score.js/_.js: ' +
+            'No element(s) could be found matching the query for "' + 
+            this._S + '"');
 };

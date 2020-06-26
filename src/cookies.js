@@ -14,7 +14,7 @@ const storage = window.localStorage;
 // While this is great and all, we don't know how much data the user is going
 // to be storing, and, so, for this reason, we instead want to use the much
 // larger, and much improved, local storage system.
-let Cookies = {
+const Cookies = {
     // Default cookies value. Contains information such as the version of
     // score.js which the site is using, what amount of time the expiration
     // date should be checked, and whether expiration dates should be
@@ -27,7 +27,7 @@ let Cookies = {
             }
         },
         'score.js_cced': {
-            'value': 60000,
+            'value': 2000,
             'parameters': {
                 'expiration': -1
             }
@@ -51,7 +51,7 @@ let Cookies = {
             }
         },
         'score.js_cced': {
-            'value': 60000,
+            'value': 2000,
             'parameters': {
                 'expiration': -1
             }
@@ -69,7 +69,10 @@ let Cookies = {
     set: function (key, value, parameters) {
         this.json[key] = {
             'value': value,
-            'parameters': parameters
+            'parameters':
+                parameters == null ?
+                    {'expiration' : -1} :
+                    parameters
         }
     },
     // Gets a value based on a key. This does not return the set of parameters,
@@ -111,15 +114,11 @@ let Cookies = {
     // the current time in MS to the expiration in MS and sees whether or
     // not the key should be removed or not.
     checkExpire: function (key) {
-        if (this.json['score.js_csce']) {
-            if (this.json[key].hasOwnProperty('parameters')
-                .hasOwnProperty('expiration')) {
-                if (this.json[key].parameters.expiration !== -1) {
-                    let expiration =
-                        JSON.parse(
-                            this.json[key].parameters.expiration
-                        );
-                    if (Date.now() > expiration) {
+        if (this.json['score.js_csce'].value) {
+            if (this.json[key].hasOwnProperty('parameters')) {
+                if (this.json[key].parameters.hasOwnProperty('expiration')) {
+                    let expiration = this.json[key].parameters.expiration;
+                    if (Date.now() > expiration && expiration != -1) {
                         this.remove(key);
                     }
                 }
@@ -140,15 +139,17 @@ let Cookies = {
     // better.
     Expiration: {
         enable: function () {
-            this.json['score.js_csce'].value = true;
-            this.expirationChecker = setinterval(
-                this.expirationCheck,
-                this.json['score.js_csce'].value
+            Cookies.json['score.js_csce'].value = true;
+            Cookies.expirationChecker = setInterval(
+                function () {
+                    Cookies.expirationCheck();
+                },
+                Cookies.json['score.js_cced'].value
             );
         },
         disable: function () {
-            this.json['score.js_csce'] = false;
-            clearInterval(this.expirationChecker);
+            Cookies.json['score.js_csce'] = false;
+            clearInterval(Cookies.expirationChecker);
         }
     },
     expirationCheck: function () {
@@ -186,9 +187,12 @@ let Cookies = {
     // Automatically save all of the cookies every fifteen seconds. Just in
     // case something goes sour and things aren't saved as we'd like them to
     // be, we can use this wonderful bit of functionality. 
-    autosaver: setInterval(function () {
-        Cookies.save();
-    }, 15000)
+    autosaver: setInterval(
+        function () {
+            Cookies.save();
+        },
+        15000
+    )
 }
 
 // As soon as the window is loaded, call this function. All this (should) do is
@@ -216,7 +220,68 @@ window.addEventListener('beforeunload', function (event) {
 // everything look cooler. Are you really complaining about getting to read
 // this action-packed cookies.js documentation? I know damn well you're not.
 Cookies.expirationChecker = setInterval(
-    Cookies.expirationCheck,
-    Cookies.json['score.js_csce'].value
+    function () {
+        Cookies.expirationCheck();
+    },
+    Cookies.json['score.js_cced'].value
 );
+
+// Base function used for determining the timestamp for the 'target' of an
+// event. Does the same exact thing as millisecondsFromNow, but obviously looks
+// a little bit cooler - let's be honest here, is there really anybody on the
+// entire planet who would rather use 'milliseconds' instead of 'ms?'
+function msFromNow (ms) {
+    return Date.now() + ms;
+}
+
+// Returns the same thing as msFromNow.
+function millisecondsFromNow (milliseconds) {
+    return msFromNow(milliseconds);
+}
+
+// Multiplies the amount of seconds inputted by 1,000 to determine that number
+// in milliseconds, and then returns the value of that new adjusted number from
+// msFromNow.
+function secondsFromNow (seconds) {
+    return millisecondsFromNow(seconds * 1000);
+}
+
+// Similar to how secondsFromNow works, this just returns the timestamp of
+// whatever time is x many minutes from the current timestamp.
+function minutesFromNow (minutes) {
+    return secondsFromNow(minutes * 60);
+}
+
+// See above.
+function hoursFromNow (hours) {
+    return minutesFromNow(hours * 60);
+}
+
+// See above again.
+function daysFromNow (days) {
+    return hoursFromNow(days * 24);
+}
+
+// ...and yet again.
+function weeksFromNow (weeks) {
+    return daysFromNow(weeks * 7);
+}
+
+// And once more!
+function monthsFromNow (months) {
+    return weeksFromNow(months * 4);
+}
+
+// One final time now...
+function yearsFromNow (years) {
+    return monthsFromNow (years * 12);
+}
+
+// English version of the -1 expiration which is used to signify the event has
+// no expiration date. You can (and maybe should) just use -1 as a number
+// instead of calling this function, but it would probably make your code make
+// a little bit neater and more coherent or whatever.
+function never () {
+    return -1;
+}
 
